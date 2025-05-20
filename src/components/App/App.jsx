@@ -68,7 +68,7 @@ export default function App() {
           width={10}
         />
       )}
-      {images.length > 0 && !loading && currentPage !== totalPages && (
+      {images.length > 0 && currentPage !== totalPages && (
         <LoadMoreBtn onLoad={incrementPage} />
       )}
     </div>
