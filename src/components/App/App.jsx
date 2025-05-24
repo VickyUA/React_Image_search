@@ -7,6 +7,7 @@ import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
 import { ScaleLoader } from "react-spinners";
 import { fetchImages } from "../../images-api";
+import ImageModal from "../ImageModal/ImageModal";
 
 export default function App() {
   const [images, setImages] = useState([]);
@@ -15,6 +16,17 @@ export default function App() {
   const [topic, setTopic] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const [modalImage, setModalImage] = useState([]);
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  function openModal(newId) {
+    setIsOpen(true);
+    setModalImage(images.filter((image) => image.id === newId));
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
 
   const handleSearch = (newTopic) => {
     setImages([]);
@@ -56,7 +68,7 @@ export default function App() {
       <Toaster />
       <SearchBar onSearch={handleSearch} />
       {error && <ErrorMessage />}
-      {images.length > 0 && <ImageGallery images={images} />}
+      {images.length > 0 && <ImageGallery images={images} isOpen={openModal} />}
       {loading && (
         <ScaleLoader
           barCount={10}
@@ -70,6 +82,13 @@ export default function App() {
       )}
       {images.length > 0 && currentPage !== totalPages && (
         <LoadMoreBtn onLoad={incrementPage} />
+      )}
+      {modalIsOpen && (
+        <ImageModal
+          image={modalImage}
+          isOpen={modalIsOpen}
+          onClose={closeModal}
+        />
       )}
     </div>
   );
