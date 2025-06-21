@@ -1,29 +1,22 @@
 import Modal from "react-modal";
-
-const customStyles = {
-  content: {
-    position: "fixed",
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-  },
-};
+import css from "./ImageModal.module.css";
 
 Modal.setAppElement("#root");
 
 export default function ImageModal({ image, isOpen, onClose }) {
   return (
     <div>
-      <Modal isOpen={isOpen} style={customStyles}>
-        <div>
-          <img src={image[0].urls.regular} alt={image[0].description} />
-          <button type="button" onClick={onClose}>
-            x
-          </button>
-        </div>
+      <Modal
+        isOpen={isOpen}
+        onRequestClose={onClose}
+        className={css.modal}
+        overlayClassName={css.overlay}
+      >
+        {image && (
+          <div>
+            <img src={image.urls.regular} alt={image.description} />
+          </div>
+        )}
       </Modal>
     </div>
   );

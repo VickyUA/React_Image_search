@@ -16,16 +16,17 @@ export default function App() {
   const [topic, setTopic] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [modalImage, setModalImage] = useState([]);
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [modalImage, setModalImage] = useState(null);
 
-  function openModal(newId) {
+  function openModal(img) {
     setIsOpen(true);
-    setModalImage(images.filter((image) => image.id === newId));
+    setModalImage(img);
   }
 
   function closeModal() {
     setIsOpen(false);
+    setModalImage(null);
   }
 
   const handleSearch = (newTopic) => {
@@ -83,13 +84,12 @@ export default function App() {
       {images.length > 0 && currentPage !== totalPages && (
         <LoadMoreBtn onLoad={incrementPage} />
       )}
-      {modalIsOpen && (
-        <ImageModal
-          image={modalImage}
-          isOpen={modalIsOpen}
-          onClose={closeModal}
-        />
-      )}
+
+      <ImageModal
+        image={modalImage}
+        isOpen={modalIsOpen}
+        onClose={closeModal}
+      />
     </div>
   );
 }

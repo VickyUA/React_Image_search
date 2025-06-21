@@ -6,13 +6,8 @@ export default function ImageGallery({ images, isOpen }) {
     <div className={css.wrapper}>
       <ul className={css.list}>
         {images.map((image) => (
-          <li key={image.id}>
-            <ImageCard
-              url={image.urls.small}
-              description={image.description}
-              id={image.id}
-              isOpen={isOpen}
-            />
+          <li key={image.id} onClick={() => isOpen(image)}>
+            <ImageCard image={image} />
           </li>
         ))}
       </ul>

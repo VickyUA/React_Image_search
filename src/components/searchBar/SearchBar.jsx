@@ -9,7 +9,7 @@ export default function SearchBar({ onSearch }) {
     const { searchQuery } = form.elements;
 
     if (searchQuery.value.trim() === "") {
-      toast.error("This is an error!");
+      toast.error("Please enter search value");
       return;
     }
     onSearch(searchQuery.value);

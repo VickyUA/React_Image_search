@@ -1,15 +1,9 @@
 import css from "./ImageCard.module.css";
 
-export default function ImageCard({ url, description, id, isOpen }) {
+export default function ImageCard({ image }) {
   return (
-    <div
-      className={css.wrapper}
-      id={id}
-      onClick={() => {
-        isOpen(id);
-      }}
-    >
-      <img src={url} alt={description} className={css.img} />
+    <div className={css.wrapper}>
+      <img src={image.urls.small} alt={image.description} className={css.img} />
     </div>
   );
 }
